@@ -6,7 +6,7 @@
 * @ClassName: dbconnection Class
 * @description: this class is define how you can interact with MYSQL 
 */
-require('config.php');
+require_once('config.php');
 
 Class dbconnection{
 	public $conn;
