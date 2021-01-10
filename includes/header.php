@@ -1,4 +1,11 @@
+<?php
+include("admin_class.php");
+if(!$admin->isLogedIn())
+{
+    $admin->reDirect("login.php");
+}
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
