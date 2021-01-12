@@ -118,8 +118,8 @@ text-align: center;
                                          <input type="text" class="form-control" name="fourthChoice">
                                         </div>
 
-                                       <select class="btn btn-outline-secondary" name = "select_correct">
-                                         <option selected disabled value="">Correct Choice</option>
+                                       <select class="btn btn-outline-secondary" name = "select_correct" id="select_correct">
+                                         <option value=""> </option>
                                          <option class="dropdown-item">First Choice</option>
                                          <option class="dropdown-item">Second Choice</option>
                                          <option class="dropdown-item">Third Choice</option>
@@ -144,8 +144,8 @@ text-align: center;
                                       </div>
                                      <input type="text" class="form-control" name="second" >
                                     </div>
-                                    <select class="btn btn-outline-secondary" name="selectTF">
-                                      <option selected disabled >Correct Choice</option>
+                                    <select class="btn btn-outline-secondary" name="selectTF" id="selectTF">
+                                      <option value=""> </option>
                                       <option class="item">T</option>
                                       <option class="item">F</option>
                                     </select>
@@ -236,11 +236,15 @@ include("includes/footer.html");
 $("#radio1").click(function(){
     $(".multipleQ").css("display", "inline");
     $(".trueFalse").css("display", "none");
+    $("#selectTF").prop('required',false);
+    $("#select_correct").prop('required',true);
   })
 
   $("#radio2").click(function(){
     $(".multipleQ").css("display", "none");
     $(".trueFalse").css("display", "inline");
+    $("#select_correct").prop('required',false);
+    $("#selectTF").prop('required',true);
   })
 
 </script>
