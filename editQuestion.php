@@ -117,7 +117,7 @@ include("includes/header.php");
                                             </div>
                                            <input type="text" class="form-control" name="fourthChoice" value="<?php echo $row_option[0]['option4'];?>">
                                           </div>
-
+                                          <label>Correct Choice</label>
                                          <select class="btn btn-outline-secondary" name = "select_correct" id="select_correct">
                                            <option value=""> </option>
                                            <option class="dropdown-item">First Choice</option>
@@ -144,6 +144,7 @@ include("includes/header.php");
                                         </div>
                                        <input type="text" class="form-control" name="second" value="<?php echo $row_option[0]['option2'];?>">
                                       </div>
+                                      <label>Correct Choice</label>
                                       <select class="btn btn-outline-secondary" name="selectTF" id="selectTF">
                                         <option value=""> </option>
                                         <option class="item">T</option>
