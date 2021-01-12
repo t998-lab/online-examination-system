@@ -78,7 +78,7 @@ include("includes/header.php");
                                                       <div class="form-check">
                                                           <div class="radio">
                                                               <label for="radio1" class="form-check-label text-primary">
-                                                                  <input type="radio" id="radio11" name="radios" value="option1" class="form-check-input">Multiple Choice
+                                                                  <input type="radio" id="radio11" name="radios" value="option1" class="form-check-input" required>Multiple Choice
                                                               </label>
                                                           </div>
                                                           <div class="radio">
@@ -118,8 +118,8 @@ include("includes/header.php");
                                            <input type="text" class="form-control" name="fourthChoice" value="<?php echo $row_option[0]['option4'];?>">
                                           </div>
 
-                                         <select class="btn btn-outline-secondary" name = "select_correct">
-                                           <option selected disabled><?php echo $row_option[0]['correct_op'];?> </option>
+                                         <select class="btn btn-outline-secondary" name = "select_correct" id="select_correct">
+                                           <option value=""> </option>
                                            <option class="dropdown-item">First Choice</option>
                                            <option class="dropdown-item">Second Choice</option>
                                            <option class="dropdown-item">Third Choice</option>
@@ -144,8 +144,8 @@ include("includes/header.php");
                                         </div>
                                        <input type="text" class="form-control" name="second" value="<?php echo $row_option[0]['option2'];?>">
                                       </div>
-                                      <select class="btn btn-outline-secondary" name="selectTF">
-                                        <option selected><?php echo $row_option[0]['correct_op'];?> </option>
+                                      <select class="btn btn-outline-secondary" name="selectTF" id="selectTF">
+                                        <option value=""> </option>
                                         <option class="item">T</option>
                                         <option class="item">F</option>
                                       </select>
@@ -179,11 +179,17 @@ include("includes/header.php");
                           $("#radio11").click(function(){
                               $(".multipleQ1").css("display", "inline");
                               $(".trueFalse1").css("display", "none");
+                              $("#selectTF").prop('required',false);
+                              $("#select_correct").prop('required',true);
+
                             })
 
                             $("#radio22").click(function(){
                               $(".multipleQ1").css("display", "none");
                               $(".trueFalse1").css("display", "inline");
+                              $("#select_correct").prop('required',false);
+                              $("#selectTF").prop('required',true);
+
                             })
 
                           </script>
