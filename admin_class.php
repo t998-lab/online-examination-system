@@ -1,5 +1,8 @@
 <?php
-session_start();
+if(!isset($_SESSION))
+ {
+     session_start();
+ }
 include_once("db_connection.php");
 class Admin extends dbconnection{
     private $admin_name;
@@ -35,6 +38,9 @@ class Admin extends dbconnection{
             $data   = $this->fetchAll($result);
             if($data){
                  $_SESSION['admin_id']=$data[0]['admin_id'];
+                 $_SESSION['admin_email']=$data[0]['admin_email'];
+                 $_SESSION['admin_name']=$data[0]['admin_name'];
+
                  return 1;
             }
             else{
@@ -60,6 +66,7 @@ class Admin extends dbconnection{
     {
         unset($_SESSION['admin_id']);
     }
+
 
 }
 $admin=new Admin();
