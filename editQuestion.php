@@ -1,34 +1,17 @@
-<<<<<<< HEAD
- <style>
-  .input-group-text{
-    width:170px;
-  }
-  .multipleQ1 , .trueFalse1{
-   display: none;
-  }
-  </style>
-<?php
-include("questionsClass.php");
-include("includes/header.php");
-  $exam_id=$_GET['examId'];
-  $question_id   =  $_GET['id'];
-  
-  $row           =  $x->readById($question_id);
-  $row_option    =  $x->readOptionById($question_id);
-                                           
-=======
 <?php
 include("questionsClass.php");
 include("includes/header.php");
 
-  $question_id   =  $_GET['id'];
+  $question_id     =  $_GET['id'];
+  $exam_id         =  $_GET['examID'];
+  $row             =  $x->readById($question_id);//for values
+  $row_option      =  $x->readOptionById($question_id);//for values
+  $exam_mark       =  $x->readMarkById($exam_id);//to get exam mark from exam table
+  $sum             = $x->sum($exam_id);//to get the sum of marks
+  $new_sum         =$sum[0]['sum']-$row[0]['q_mark'];//to get the sum of marks without the mark selected before
 
-  $row           =  $x->readById($question_id);
-  $row_option    =  $x->readOptionById($question_id);
 
->>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
   if(isset($_POST['edit'])){
-
     $x->radio =$_POST['radios'];
     if ($x->radio=="option1") {
       $x->one         =  $_POST['firstChoice'];
@@ -49,38 +32,30 @@ include("includes/header.php");
       $x->question_id = $question_id;
       $x->exam_id1    = $row_option[0]['exam_id'];
       $x->editOptionTF($question_id);
+
     }
+      $x->question     =   $_POST['qusetion'];
+      $x->mark         =   $_POST['marks'];
+      //
+      if($_FILES['q_img']['name']){
+        $x->image        =   $_FILES['q_img']['name'];
+        $tmpName         =   $_FILES['q_img']['tmp_name'];
+        $path            =   'images/';
+        move_uploaded_file($tmpName, $path.$x->image);
+        }
+      else{
+        $x->image=$row[0]['q_image'];
+      }
 
-  $x->question     =   $_POST['qusetion'];
-  $x->mark         =   $_POST['marks'];
-<<<<<<< HEAD
-  if($_FILES['q_img']['name']){
-=======
->>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
-  $x->image        =   $_FILES['q_img']['name'];
-  $tmpName         =   $_FILES['q_img']['tmp_name'];
-  $path            =   'images/';
-  move_uploaded_file($tmpName, $path.$x->image);
-<<<<<<< HEAD
-  }else{
-    $x->image=$row[0]['q_image'];
+      $x->exam_id      = $row_option[0]['exam_id'];
+      if($exam_mark[0]['exam_mark']>=$new_sum+$x->mark ){
+         $x->update($question_id);
+     }
+      else{
+   $error = "Cannot edit question!<br>Question marks are now more than exam's full mark!!!";
   }
-  $x->exam_id      = $row_option[0]['exam_id'];
-
-  $x->update($question_id);
-  echo"<script>window.location='questions.php?id=".$exam_id."'</script>";
-  }
-   
+}
   ?>
-
- 
-=======
-  $x->exam_id      = $row_option[0]['exam_id'];
-
-  $x->update($question_id);
-  }
-  ?>
-
   <style>
   .input-group-text{
     width:170px;
@@ -90,7 +65,6 @@ include("includes/header.php");
   }
   </style>
 
->>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
   <div class="row">
                              <div class="col-lg-12">
                                   <div class="card">
@@ -113,19 +87,11 @@ include("includes/header.php");
                                               <div class="col col-md-3">
                                                       <label class=" form-control-label">Type</label>
                                                   </div>
-<<<<<<< HEAD
-                                              
-=======
->>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
                                                   <div class="col col-md-9">
                                                       <div class="form-check">
                                                           <div class="radio">
                                                               <label for="radio1" class="form-check-label text-primary">
-<<<<<<< HEAD
-                                                                  <input type="radio" id="radio11" name="radios" value="option1" class="form-check-input">Multiple Choice
-=======
                                                                   <input type="radio" id="radio11" name="radios" value="option1" class="form-check-input" required>Multiple Choice
->>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
                                                               </label>
                                                           </div>
                                                           <div class="radio">
@@ -164,15 +130,9 @@ include("includes/header.php");
                                             </div>
                                            <input type="text" class="form-control" name="fourthChoice" value="<?php echo $row_option[0]['option4'];?>">
                                           </div>
-<<<<<<< HEAD
-
-                                         <select class="btn btn-outline-secondary" name = "select_correct">
-                                           <option selected disabled><?php echo $row_option[0]['correct_op'];?> </option>
-=======
                                           <label>Correct Choice</label>
                                          <select class="btn btn-outline-secondary" name = "select_correct" id="select_correct">
                                            <option value=""> </option>
->>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
                                            <option class="dropdown-item">First Choice</option>
                                            <option class="dropdown-item">Second Choice</option>
                                            <option class="dropdown-item">Third Choice</option>
@@ -197,14 +157,9 @@ include("includes/header.php");
                                         </div>
                                        <input type="text" class="form-control" name="second" value="<?php echo $row_option[0]['option2'];?>">
                                       </div>
-<<<<<<< HEAD
-                                      <select class="btn btn-outline-secondary" name="selectTF">
-                                        <option selected disabled><?php echo $row_option[0]['correct_op'];?> </option>
-=======
                                       <label>Correct Choice</label>
                                       <select class="btn btn-outline-secondary" name="selectTF" id="selectTF">
                                         <option value=""> </option>
->>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
                                         <option class="item">T</option>
                                         <option class="item">F</option>
                                       </select>
@@ -212,20 +167,27 @@ include("includes/header.php");
                                       <!-- end of true or false -->
 
                                                   <hr>
-                                                  <label>Mark</label>
-                                              <select name="marks" class="custom-select mb-3">
-<<<<<<< HEAD
-                                                <option selected disabled><?php echo $row[0]['q_mark'];?></option>
-=======
-                                                <option selected><?php echo $row[0]['q_mark'];?></option>
->>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-
                                               </select>
+                                              <label>Mark</label>
+                                          <select name="marks" class="custom-select mb-3" required>
+                                            <option selected><?php echo $row[0]['q_mark'];?></option>
+                                              <?php
+                                              $option = 1;
+                                              while($option<=$exam_mark[0]['exam_mark'])
+                                              {
+                                                echo"<option>{$option}</option>";
+                                                $option++;
+                                              }
+                                              ?>
+                                            </select>
+                                            <?php
+                                              if(isset($error)){
+                                                  echo "<div style='background:#FFDDDD;padding:6px;margin-bottom:20px'>".$error."</div>";
+                                              }
+                                             ?>
+
                                               <div>
-                                                  <button id="payment-button" type="submit"  name="edit"class="btn btn-lg btn-info btn-block">
+                                                  <button id="payment-button" type="submit"  name="edit"class="btn btn-lg btn-primary btn-block">
                                                      Edit
                                                   </button>
                                               </div>
@@ -234,40 +196,6 @@ include("includes/header.php");
                                   </div>
                               </div>
                           </div>
-<<<<<<< HEAD
-   
-                         <?php
-                          include("includes/footer.html");?>
- <?php
-                        if(($row_option[0]['type'])=="multiple")
-                                              { echo "yes";
-                                              echo "<script>";
-                                                echo '$(".multipleQ1").css("display", "inline")';
-                                                echo '$(".trueFalse1").css("display", "none")';
-                                              echo "</script>";
-                                              
-                                                }
-                                                else{
-                                                  
-                                                 ?>
-                                                 
-                                               <!-- <script>
-                                                   $(".multipleQ1").css("display", "none");
-                                                  $(".trueFalse1").css("display", "inline");
-                                                  </script>-->
-                                               <?php  }?>
-                          <script>
-
-                        $("#radio11").click(function(){
-                              $(".multipleQ1").css("display", "inline");
-                              $(".trueFalse1").css("display", "none");
-                            });
-                          
-                            $("#radio22").click(function(){
-                             $(".multipleQ1").css("display", "none");
-                            $(".trueFalse1").css("display", "inline");
-                         });
-=======
 
                           <?php include("includes/footer.html");?>
 
@@ -288,6 +216,5 @@ include("includes/header.php");
                               $("#selectTF").prop('required',true);
 
                             })
->>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
 
                           </script>
