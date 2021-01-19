@@ -120,7 +120,7 @@ text-align: center;
 
                                        <select class="btn btn-outline-secondary" name = "select_correct">
                                          <option selected disabled value="">Correct Choice</option>
-                                         <option class="dropdown-item">First Choice</option>
+                                         <option value="<?php?>" class="dropdown-item">First Choice</option>
                                          <option class="dropdown-item">Second Choice</option>
                                          <option class="dropdown-item">Third Choice</option>
                                          <option class="dropdown-item">Fourth Choice</option>
@@ -192,23 +192,26 @@ text-align: center;
 
                                             if ($x->readQByExamId($exam_id)) {
                                             foreach ($x->readQByExamId($exam_id) as $row) {
+                                              $picture="";
                                               echo"<tr>";
                                               echo"<td>{$row['q_id']}</td>";
                                                   echo"<td>{$row['q_text']} </td>";
+                                                  
                                                   if($row['q_image']!=null){
+                                                    $picture="{$row['q_image']}";
                                                   echo"<td width ='200px'><img src ='images/{$row['q_image']}'
                                                            height='100' width='100'/> </td>";
                                                   }
                                                    else {
-                                                     echo"<td> </td>";
+                                                     echo"<td width ='200px'></td>";
                                                   }
                                                   $option = $x->readOptionById($row['q_id']);
                                                   echo"<td>{$option[0]['option1']},{$option[0]['option2']}
                                                            {$option[0]['option3']},{$option[0]['option4']}
                                                        </td>";
                                                   echo"<td>{$row['q_mark']}</td>";
-                                                  echo"<td><a href='editQuestion.php?id={$row['q_id']}' class='btn btn-primary'>Edit</td>";
-                                                  echo"<td style='text-align:center'><a href='questions.php?action=delete&id={$row['q_id']}' class='btn btn-danger'>Delete</a></td>";
+                                                  echo"<td><a href='editQuestion.php?examId={$exam_id}&&id={$row['q_id']}' class='btn btn-primary'>Edit</td>";
+                                                  echo"<td style='text-align:center'><a href='questions.php?action=delete&examId={$exam_id}&id={$row['q_id']}' class='btn btn-danger'>Delete</a></td>";
                                               echo"</tr>";
                                             }
                                           }
@@ -223,9 +226,12 @@ text-align: center;
                                 }
                                 elseif($action=='delete') {
                                 $id  = $_GET['id'];
+                                $examID=$_GET['examId'];
+                              
                                 $x->delete($id);
+                                echo"<script>window.location='questions.php?id=".$examID."'</script>";
                                 ?>
-                                <script>window.location = 'exams.php';</script>
+                                
 
 <?php
 }

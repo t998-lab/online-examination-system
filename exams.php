@@ -83,7 +83,7 @@ if($action=='dash')
                                                 $category=$c->readById($cat_id);
                                                 echo "<tr><td>{$row['exam_id']}</td><td>{$row['exam_name']}</td><td>{$row['exam_desc']}</td>";
                                                 echo "<td class='text-primary'>{$row['exam_mark']}</td><td>".$category[0]['cat_name']."</td>";
-                                                echo "<td><a href='questions.php?id=".$row['exam_id']."' class='btn btn-secondary'>Show</a></td>";
+                                                echo "<td><a href='exams.php?action=show&id=".$row['exam_id']."' class='btn btn-secondary'>Show</a></td>";
                                                 echo "<td><a href='exams.php?action=edit&id=".$row['exam_id']."' class='btn btn-primary'>Edit</a></td>";
                                                 echo "<td><a href='exams.php?action=delete&id=".$row['exam_id']."' class='btn btn-danger'>Delete</a></td></tr>";
                                                
