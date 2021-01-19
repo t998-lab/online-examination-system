@@ -1,3 +1,4 @@
+<<<<<<< HEAD
  <style>
   .input-group-text{
     width:170px;
@@ -15,6 +16,17 @@ include("includes/header.php");
   $row           =  $x->readById($question_id);
   $row_option    =  $x->readOptionById($question_id);
                                            
+=======
+<?php
+include("questionsClass.php");
+include("includes/header.php");
+
+  $question_id   =  $_GET['id'];
+
+  $row           =  $x->readById($question_id);
+  $row_option    =  $x->readOptionById($question_id);
+
+>>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
   if(isset($_POST['edit'])){
 
     $x->radio =$_POST['radios'];
@@ -41,11 +53,15 @@ include("includes/header.php");
 
   $x->question     =   $_POST['qusetion'];
   $x->mark         =   $_POST['marks'];
+<<<<<<< HEAD
   if($_FILES['q_img']['name']){
+=======
+>>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
   $x->image        =   $_FILES['q_img']['name'];
   $tmpName         =   $_FILES['q_img']['tmp_name'];
   $path            =   'images/';
   move_uploaded_file($tmpName, $path.$x->image);
+<<<<<<< HEAD
   }else{
     $x->image=$row[0]['q_image'];
   }
@@ -58,6 +74,23 @@ include("includes/header.php");
   ?>
 
  
+=======
+  $x->exam_id      = $row_option[0]['exam_id'];
+
+  $x->update($question_id);
+  }
+  ?>
+
+  <style>
+  .input-group-text{
+    width:170px;
+  }
+  .multipleQ1 , .trueFalse1{
+    display: none;
+  }
+  </style>
+
+>>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
   <div class="row">
                              <div class="col-lg-12">
                                   <div class="card">
@@ -80,12 +113,19 @@ include("includes/header.php");
                                               <div class="col col-md-3">
                                                       <label class=" form-control-label">Type</label>
                                                   </div>
+<<<<<<< HEAD
                                               
+=======
+>>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
                                                   <div class="col col-md-9">
                                                       <div class="form-check">
                                                           <div class="radio">
                                                               <label for="radio1" class="form-check-label text-primary">
+<<<<<<< HEAD
                                                                   <input type="radio" id="radio11" name="radios" value="option1" class="form-check-input">Multiple Choice
+=======
+                                                                  <input type="radio" id="radio11" name="radios" value="option1" class="form-check-input" required>Multiple Choice
+>>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
                                                               </label>
                                                           </div>
                                                           <div class="radio">
@@ -124,9 +164,15 @@ include("includes/header.php");
                                             </div>
                                            <input type="text" class="form-control" name="fourthChoice" value="<?php echo $row_option[0]['option4'];?>">
                                           </div>
+<<<<<<< HEAD
 
                                          <select class="btn btn-outline-secondary" name = "select_correct">
                                            <option selected disabled><?php echo $row_option[0]['correct_op'];?> </option>
+=======
+                                          <label>Correct Choice</label>
+                                         <select class="btn btn-outline-secondary" name = "select_correct" id="select_correct">
+                                           <option value=""> </option>
+>>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
                                            <option class="dropdown-item">First Choice</option>
                                            <option class="dropdown-item">Second Choice</option>
                                            <option class="dropdown-item">Third Choice</option>
@@ -151,8 +197,14 @@ include("includes/header.php");
                                         </div>
                                        <input type="text" class="form-control" name="second" value="<?php echo $row_option[0]['option2'];?>">
                                       </div>
+<<<<<<< HEAD
                                       <select class="btn btn-outline-secondary" name="selectTF">
                                         <option selected disabled><?php echo $row_option[0]['correct_op'];?> </option>
+=======
+                                      <label>Correct Choice</label>
+                                      <select class="btn btn-outline-secondary" name="selectTF" id="selectTF">
+                                        <option value=""> </option>
+>>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
                                         <option class="item">T</option>
                                         <option class="item">F</option>
                                       </select>
@@ -162,7 +214,11 @@ include("includes/header.php");
                                                   <hr>
                                                   <label>Mark</label>
                                               <select name="marks" class="custom-select mb-3">
+<<<<<<< HEAD
                                                 <option selected disabled><?php echo $row[0]['q_mark'];?></option>
+=======
+                                                <option selected><?php echo $row[0]['q_mark'];?></option>
+>>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
@@ -178,6 +234,7 @@ include("includes/header.php");
                                   </div>
                               </div>
                           </div>
+<<<<<<< HEAD
    
                          <?php
                           include("includes/footer.html");?>
@@ -210,5 +267,27 @@ include("includes/header.php");
                              $(".multipleQ1").css("display", "none");
                             $(".trueFalse1").css("display", "inline");
                          });
+=======
+
+                          <?php include("includes/footer.html");?>
+
+                          <script>
+
+                          $("#radio11").click(function(){
+                              $(".multipleQ1").css("display", "inline");
+                              $(".trueFalse1").css("display", "none");
+                              $("#selectTF").prop('required',false);
+                              $("#select_correct").prop('required',true);
+
+                            })
+
+                            $("#radio22").click(function(){
+                              $(".multipleQ1").css("display", "none");
+                              $(".trueFalse1").css("display", "inline");
+                              $("#select_correct").prop('required',false);
+                              $("#selectTF").prop('required',true);
+
+                            })
+>>>>>>> 0c89e7f60e0da7c08d0447201986abb0a0126e02
 
                           </script>
