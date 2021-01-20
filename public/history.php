@@ -59,7 +59,7 @@ $readExam = $h->readById(2);
 
                                                           <img src="../images/<?php echo $key['cat_image'];?>" alt="exam" class="avatar-img rounded"><?php }?>
                                                         </a>
-                                                        <a href="student-take-course.html" class="text-body"><strong class="text-primary"><?php echo $key['exam_name'];?></strong></a>
+                                                        <a href="exam-result.php?h_id=<?php echo $ID?>" class="text-body"><strong class="text-primary"><?php echo $key['exam_name'];?></strong></a>
                                                         <span class="float-right"><?php echo $key['result'];?> </span>
                                                         <div class="d-flex align-items-center">
                                                                                                                 </div>
