@@ -79,7 +79,7 @@ if ($action == 'dash'){
                                                     echo "<td>{$row['cat_image']}</td>";
                                                 }
                                                 echo "<td><a href='category.php?action=show&id=".$row['cat_id']."' class='btn btn-secondary'>Show</a></td>";
-                                                echo "<td><a href='category.php?action=edit&id=".$row['cat_id']."&&im=".$row['cat_image']."' class='btn btn-primary'>Edit</a></td>";
+                                                echo "<td><a href='category.php?action=edit&id=".$row['cat_id']."' class='btn btn-primary'>Edit</a></td>";
                                                 echo "<td><a href='category.php?action=delete&id=".$row['cat_id']."' class='btn btn-danger'>Delete</a></td></tr>";
                                             }
                                             }
@@ -117,7 +117,7 @@ elseif($action=='edit')
             $path         = 'images/';
             move_uploaded_file($tmp,$path.$c->cat_image);
         }else{
-            $image=$_GET['im'];
+            $image=$data[0]['cat_image'];
             $c->cat_image =$image;
         }
         $c->edit($id);
