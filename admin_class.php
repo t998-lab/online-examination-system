@@ -65,6 +65,8 @@ class Admin extends dbconnection{
     public function logOut()
     {
         unset($_SESSION['admin_id']);
+	unset($_SESSION['admin_email']);
+        unset( $_SESSION['admin_name']);
     }
 
 
