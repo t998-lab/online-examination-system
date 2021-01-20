@@ -61,7 +61,7 @@ if ($action == 'dash'){
                                                 <th>Name</th>
                                                 <th>description</th>
                                                 <th>image</th>
-                                                <th>show</th>
+                                                
                                                 <th>Edit</th>
                                                 <th>Delete</th>
                                             </tr>
@@ -78,7 +78,7 @@ if ($action == 'dash'){
                                                 else{
                                                     echo "<td>{$row['cat_image']}</td>";
                                                 }
-                                                echo "<td><a href='category.php?action=show&id=".$row['cat_id']."' class='btn btn-secondary'>Show</a></td>";
+                                                
                                                 echo "<td><a href='category.php?action=edit&id=".$row['cat_id']."' class='btn btn-primary'>Edit</a></td>";
                                                 echo "<td><a href='category.php?action=delete&id=".$row['cat_id']."' class='btn btn-danger'>Delete</a></td></tr>";
                                             }
