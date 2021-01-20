@@ -2,7 +2,7 @@
 include("include/header.php");
 include("../questionsClass.php");
 $array1=array();
-$examID = 9;//get exam's real Id
+$examID = $_GET['eid'];//get exam's real Id
 ?>
 
         <!-- Header Layout Content -->

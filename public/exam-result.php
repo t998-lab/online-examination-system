@@ -56,15 +56,14 @@ $readQ = $x->readQuestions($h_id);
                               <table>
                                 <tr>
                                   <?php if($row['st_answer']==$row['correct_op']){
-                                 echo "<td id='st_answer_true'> {$row['st_answer']}</td>";
+                                 echo "<td id='st_answer_true'><span class='text-secondary'>Your Answer : </span>{$row['st_answer']}</td>";
                                   }
                                   else{
-                                   echo"<td id='st_answer_false'>{$row['st_answer']}</td>";
-
+                                   echo"<td id='st_answer_false'><span class='text-secondary'>Your Answer : </span>{$row['st_answer']}</td>";
                                  }?>
                                 </tr>
                                 <tr>
-                                  <td id="correct_op"><?php echo $row['correct_op']?></td>
+                                  <td id="correct_op"><span class='text-secondary'>Correct Answer : </span><?php echo $row['correct_op']?></td>
                                 </tr>
                               </table>
                             </div>

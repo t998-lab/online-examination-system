@@ -1,7 +1,17 @@
-
 <?php
 include("include/header.php");
 include("historyClass.php");
+class CatDash extends dbconnection{
+    public function readAllCat()
+    {
+        $query  = "SELECT * FROM category";
+        $result = $this->performQuery($query);
+        return    $this->fetchAll($result);
+    }
+}
+$c=new CatDash();
+$category=$c->readAllCat();
+
 $readExam = $h->readById(1);
 ?>
         <!-- // END Header -->
@@ -50,8 +60,8 @@ $readExam = $h->readById(1);
                                     <div class="card-header">
                                         <div class="media align-items-center">
                                             <div class="media-body">
-                                                <h4 class="card-title">Courses</h4>
-                                                <p class="card-subtitle">my recent courses</p>
+                                                <h4 class="card-title">Categories</h4>
+                                                <p class="card-subtitle">All categories in the system</p>
                                             </div>
                                             <div class="media-right">
                                             </div>
@@ -63,19 +73,30 @@ $readExam = $h->readById(1);
                                     <ul class="list-group list-group-fit mb-0" style="z-index: initial;">
 
 
-
+                                        <?php
+                                        if($category){
+                                            foreach($category as $row)
+                                            {?>
                                         <li class="list-group-item" style="z-index: initial;">
                                             <div class="d-flex align-items-center">
-                                                <a href="student-take-course.html" class="avatar avatar-4by3 avatar-sm mr-3">
-                                                    <img src="assets/images/prognode.png" alt="course" class="avatar-img rounded">
+                                                <?php echo '<a href="student-my-exam.php?id='.$row['cat_id'].'&n='.$row['cat_name'].'" class="avatar avatar-4by3 avatar-sm mr-3">';?>
+                                                   <?php if($row['cat_image']!=null){?>
+                                                    <img src="../images/<?php echo$row['cat_image'];?>" alt="course" class="avatar-img rounded">
+                                                    <?php } else
+                                                    {?>
+                                                    <img src="assets/images/logo/primary.svg" alt="exam" class="avatar-img rounded">
+                                                    <?php }?>
                                                 </a>
                                                 <div class="flex">
-                                                    <a href="student-take-course.html" class="text-body"><strong>PHP FULL STACK</strong></a>
+                                                    <?php echo '<a href="student-my-exam.php?id='.$row['cat_id'].'&n='.$row['cat_name'].'"class="text-body">'?><strong><?php echo $row['cat_name']; ?></strong></a>
                                                     <div class="d-flex align-items-center">
-                                                                                                            </div>
+                                                    </div>
                                                 </div>
-                                                                                                                                                                                          </div>
+                                            </div>
                                         </li>
+                                           <?php }
+                                        }
+                                        ?>
 
                                     </ul>
                                 </div>

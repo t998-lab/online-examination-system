@@ -1,6 +1,21 @@
 ﻿<?php
 include("include/header.php");
+include("../db_connection.php");
+class ExamStudent extends dbconnection
+{
+    public function AllExamByCatId($id)
+    {
+        $query  = "SELECT * FROM exam WHERE cat_id=$id";
+        $result = $this->performQuery($query);
+        return    $this->fetchAll($result);
+    }
+}
+$name=$_GET['n'];
+$cat_id=$_GET['id'];
+$e=new ExamStudent();
+$exam=$e->AllExamByCatId($cat_id);
 ?>
+
 
         <!-- // END Header -->
 
@@ -13,87 +28,37 @@ include("include/header.php");
                     <div class="container-fluid page__container">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="student-dashboard.html">Home</a></li>
-                            <li class="breadcrumb-item active">Programing Exam</li>
+                            <li class="breadcrumb-item active"><?php echo $name;?></li>
                         </ol>
                         <div class="media mb-headings align-items-center">
                             <div class="media-body">
-                                <h1 class="h2">Programing Exam</h1><br><br>
+                                <h1 class="h2"><?php echo $name;?> Exams</h1><br><br>
                             </div>
                                                     </div>
                         <div class="card-columns">
+                         <?php if($exam)
+                         { foreach($exam as $row)
+                         {
+                         ?>
                             <div class="card">
                                 <div class="card-header">
                                     <div class="media">
                                         <div class="media-left">
-                                            <a href="student-student-take-course.html">
-                                                <img src="assets/images/prognode.png" alt="Card image cap" width="100" class="rounded">
-                                            </a>
+                                               
                                         </div>
                                         <div class="media-body">
-                                            <h4 class="card-title m-0"><a href="student-take-course.html">ASP.NET</a></h4>
+                                            <h4 class="card-title m-0"><?php echo $row['exam_name'];?></h4>
                                         </div>
                                     </div>
                                 </div>
-                                                              <div class="card-footer bg-white">
-                                    <a href="student-take-course.html" class="btn btn-primary btn-sm">Talk Exam <i class="material-icons btn__icon--right">play_circle_outline</i></a>
+                                <div class="card-footer bg-white">
+                                    <?php echo '<a href="takeExam.php?eid='.$row['exam_id'].'" class="btn btn-primary btn-sm">';?>Take Exam<i class="material-icons btn__icon--right">play_circle_outline</i></a>
                                 </div>
                             </div>
-
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#">
-                                                <img src="assets/images/prognode.png" alt="Card image cap" width="100" class="rounded">
-                                            </a>
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="card-title m-0"><a href="#">CSS3&amp; HTML5</a></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                                                <div class="card-footer bg-white ">
-                                  <a href="student-take-course.html" class="btn btn-primary btn-sm">Talk Exam <i class="material-icons btn__icon--right">play_circle_outline</i></a>
-
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#">
-                                                <img src="assets/images/prognode.png" alt="Card image cap" width="100" class="rounded">
-                                            </a>
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="card-title m-0"><a href="#">SQL&amp;PHP</a></h4>
-                                                                                    </div>
-                                    </div>
-                                </div>
-                                                                <div class="card-footer bg-white">
-                                    <a href="student-take-course.html" class="btn btn-primary btn-sm">Talk Exam <i class="material-icons btn__icon--right">play_circle_outline</i></a>
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#">
-                                                <img src="assets/images/prognode.png" alt="Card image cap" width="100" class="rounded">
-                                            </a>
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="card-title m-0"><a href="#">Animation</a></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                                              <div class="card-footer bg-white">
-                                    <a href="student-take-course.html" class="btn btn-primary btn-sm">Talk Exam <i class="material-icons btn__icon--right">play_circle_outline</i></a>
-
-                                </div>
-                            </div>
+                           <?php
+                         }
+                         }
+                            ?>
 
                             <div>
                                 <div>
