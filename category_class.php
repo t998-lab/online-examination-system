@@ -1,5 +1,5 @@
 <?php
-require("db_connection.php");
+require_once("db_connection.php");//include once
 class Category extends dbconnection {
     public $cat_id;
     public $cat_name;
