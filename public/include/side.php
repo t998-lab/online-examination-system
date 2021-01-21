@@ -47,6 +47,7 @@ $cat=$c->read();
                                         </a>
                                         <ul class="sidebar-submenu sm-indent collapse" id="forum_menu">
                                   <?php
+				    if($cat)
                                     foreach($cat AS $row)
                                     {
                                     echo '<li class="sidebar-menu-item">';
