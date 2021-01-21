@@ -1,4 +1,3 @@
-
 <?php
 include_once("include/header.php");
 include_once("../db_connection.php");
@@ -18,12 +17,12 @@ public function update($id){
   <script>window.location='student-dashboard.php';</script>
 <?php }
 
-public function password(){
+public function password($stSession){
   if($this->newPass!=NULL){
     $newPassword = sha1($this->newPass);
     if($this->password!=$newPassword)
       { $query = "UPDATE student SET st_password = '$newPassword'
-                  WHERE st_id = 2";
+                  WHERE st_id = $stSession";
         $this->performQuery($query);
          return true;}
     else {return false;}
@@ -40,7 +39,7 @@ if(isset($_POST['edit'])){
  $e->email     =  $_POST['email'];
  $e->password  =  $select[0]['st_password'];
  $e->newPass   =  $_POST['newPass'];
- $e->password();
+ $e->password($stSession);
 
  if($_FILES['st_image']['name']){
    $e->image        =   $_FILES['st_image']['name'];
@@ -51,7 +50,7 @@ if(isset($_POST['edit'])){
  else{
    $e->image=$select[0]['st_image'];
  }
- if($e->password()==true){
+ if($e->password($stSession)==true){
  $e->update($st_id);
 }
 else{ $error = "Your new password is the same as your old password!";}
