@@ -1,3 +1,16 @@
+<?php
+include("studentClass.php");
+
+if(!$student->isLogedIn())
+{
+    $student->reDirect("user-login.php");
+}
+else{
+    $image=$_SESSION['st_image'];
+    $stSession=$_SESSION['st_id'];
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -86,12 +99,12 @@
                             <!-- Notifications dropdown -->
                                                         <!-- User dropdown -->
                             <li class="nav-item dropdown ml-1 ml-md-3">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"><img src="assets/images/people/50/guy-6.jpg" alt="Avatar" class="rounded-circle" width="40"></a>
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"><?php echo '<img src="../images/'.$image.'" alt="Avatar" class="rounded-circle" width="40">'?></a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="#">
                                         <i class="material-icons">edit</i> Edit Account
                                     </a>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="logout.php">
                                         <i class="material-icons">lock</i> Logout
                                     </a>
                                 </div>

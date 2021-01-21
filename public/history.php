@@ -2,7 +2,7 @@
 <?php
 include("include/header.php");
 include("historyClass.php");
-$readExam = $h->readById(2);
+$readExam = $h->readById($stSession);//testtttt
 ?>
         <!-- // END Header -->
 

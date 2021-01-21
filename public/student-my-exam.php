@@ -1,6 +1,7 @@
 ﻿<?php
+include_once("../db_connection.php");
 include("include/header.php");
-include("../db_connection.php");
+
 class ExamStudent extends dbconnection
 {
     public function AllExamByCatId($id)

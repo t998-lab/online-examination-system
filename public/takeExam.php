@@ -102,7 +102,7 @@ $examID = $_GET['eid'];//get exam's real Id
                                  if (isset($_POST['submit'])) {
                                     date_default_timezone_set('Asia/Amman');
                                     $date       =date("Y-m-d");
-                                    $st_id      = 1;//get student's real Id
+                                    $st_id      = $stSession;//get student's real Id
                                     $x->addStHistory($st_id,$examID,$date,$array1);
                                  }
                                  ?>

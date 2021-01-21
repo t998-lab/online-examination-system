@@ -1,3 +1,21 @@
+<?php
+include("studentClass.php");
+if(isset($_POST['submit'])){
+ $email   =$_POST['email'];
+ $password=$_POST['password'];
+ if($student->login($email,$password))
+ {
+  $student->reDirect("student-dashboard.php");
+ }
+ else
+ {
+  $error="User not found";
+ }
+
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -52,11 +70,16 @@
 
                
                    
-                    <form action="student-dashboard.html" novalidate method="get">
+                    <form action=""  method="post">
+                    	<?php
+  if(isset($error)){
+      echo "<div style='background:#FFDDDD;padding:8px'>".$error."</div>";
+  }
+ ?>
                         <div class="form-group">
                             <label class="form-label" for="email">Your email address:</label>
                             <div class="input-group input-group-merge">
-                                <input id="email" type="email" required="" class="form-control form-control-prepended" placeholder="Your email address">
+                                <input name="email" id="email" type="email" required="" class="form-control form-control-prepended" placeholder="Your email address">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <span class="far fa-envelope"></span>
@@ -67,7 +90,7 @@
                         <div class="form-group">
                             <label class="form-label" for="password">Your password:</label>
                             <div class="input-group input-group-merge">
-                                <input id="password" type="password" required="" class="form-control form-control-prepended" placeholder="Your password">
+                                <input name="password" id="password" type="password" required="" class="form-control form-control-prepended" placeholder="Your password">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <span class="far fa-key"></span>
@@ -76,10 +99,10 @@
                             </div>
                         </div>
                         <div class="form-group ">
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <button name="submit" type="submit" class="btn btn-primary btn-block">Login</button>
                         </div>
                 <div class="card-footer text-center text-black-50">
-                    Not yet a student? <a href="guest-signup.html">Sign Up </a>
+                    Not yet a student? <a href="guest-signup.php">Sign Up</a>
                 </div>
  
 

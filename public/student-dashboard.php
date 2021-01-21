@@ -12,7 +12,7 @@ class CatDash extends dbconnection{
 $c=new CatDash();
 $category=$c->readAllCat();
 
-$readExam = $h->readById(1);
+$readExam = $h->readById($stSession);
 ?>
         <!-- // END Header -->
 
@@ -288,11 +288,12 @@ include("include/side.php");
                 var data = {
                   labels: [
                     <?php
+                    if($readExam){
                     foreach ($readExam as $key) {
                       echo " '{$key['exam_name']}'";
                       echo ",";
 
-                    }
+                    }}
                     ?>
                   ],
                     datasets: [{
@@ -300,10 +301,11 @@ include("include/side.php");
 
                         data: [
                           <?php
+                          if($readExam){
                           foreach ($readExam as $value) {
                             echo " '{$value['result']}'";
                             echo ",";
-                          }?>
+                          }}?>
                         ],
 
                         pointHoverBorderColor: settings.colors.success[400],

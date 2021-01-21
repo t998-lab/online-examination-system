@@ -1,6 +1,38 @@
 ﻿    <!-- Auother Frontend Bayan S.belbese -->
 
+<?php
+include("studentClass.php");
 
+ if(isset($_POST['submit'])){
+
+   $name =$_POST['name'];
+   $email =$_POST['email'];
+   $password =$_POST['pass'];
+   $password_confirm =$_POST['c_pass'];
+   $mobile =$_POST['mobile'];
+   $level =$_POST['ed_level'];
+   $image = $_FILES['image']['name'];
+   $temp_name = $_FILES['image']['tmp_name'];
+   $path = "../images/";
+   move_uploaded_file($temp_name,$path.$image);
+   $r=$student->register($name,$email,$password,$password_confirm,$mobile,$image,$level);
+  
+  if($r=="* Email Already Exists")
+  {
+   $errorEmail=$r;
+  }
+  elseif($r=="* Password not match !"){
+  $errorPass=$r;
+  }
+  elseif($r=="your signed up successfully")
+  {
+    $message=$r;
+  }
+  
+
+   
+ }
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -42,7 +74,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center mb-5 navbar-light">
-                <a href="student-dashboard.html" class="navbar-brand m-0">Exmanation System</a>
+                <a href="" class="navbar-brand m-0">Exmanation System</a>
             </div>
             <div class="card navbar-shadow">
                 <div class="card-header text-center">
@@ -53,11 +85,11 @@
 
                  
                  
-                    <form action="student-dashboard.html" novalidate method="get">
+                    <form action="" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label class="form-label" for="name">Name:</label>
                             <div class="input-group input-group-merge">
-                                <input id="name" type="text" required="" class="form-control form-control-prepended" placeholder="Your first and last name">
+                                <input id="name" name="name" type="text" required="" class="form-control form-control-prepended" placeholder="Your first and last name">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <span class="far fa-user"></span>
@@ -68,18 +100,29 @@
                         <div class="form-group">
                             <label class="form-label" for="email">Email address:</label>
                             <div class="input-group input-group-merge">
-                                <input id="email" type="email" required="" class="form-control form-control-prepended" placeholder="Your email address">
+                                <input id="email" name="email" type="email" required="" class="form-control form-control-prepended" placeholder="Your email address">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <span class="far fa-envelope"></span>
+                                        
                                     </div>
+                                    
                                 </div>
                             </div>
+                            <?php
+                            if (isset($errorEmail)) {
+                            echo"<div class='alert alert-danger' role='alert' width='500'>
+                            {$errorEmail}
+                            </div>
+                            ";
+                            }
+                            ?>
+                                                         
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="password">Password:</label>
                             <div class="input-group input-group-merge">
-                                <input id="password" type="password" required="" class="form-control form-control-prepended" placeholder="Choose a password">
+                                <input name="pass" id="password" type="password" required="" class="form-control form-control-prepended" placeholder="Choose a password">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <span class="fa fa-key"></span>
@@ -87,21 +130,29 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="form-group">
-                            <label class="form-label" for="password2">Password:</label>
+                            <label class="form-label" for="password2">confirm Password:</label>
                             <div class="input-group input-group-merge">
-                                <input id="password2" type="password" required="" class="form-control form-control-prepended" placeholder="Confirm password">
+                                <input name="c_pass" id="password2" type="password" required="" class="form-control form-control-prepended" placeholder="Confirm password">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <span class="fa fa-key"></span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div><?php
+                            if (isset($errorPass)) {
+                            echo"<div class='alert alert-danger' role='alert' width='500'>
+                            {$errorPass}
+                            </div>
+                            ";
+                            }
+                            ?>
                         <div class="form-group">
                             <label class="form-label" for="mobile">Mobile</label>
                             <div class="input-group input-group-merge">
-                                <input id="mobile" type="text" required="" class="form-control form-control-prepended"  placeholder="Your Mobile Number">
+                                <input id="mobile" name="mobile" type="text" required="" class="form-control form-control-prepended"  placeholder="Your Mobile Number">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <span class="fas fa-mobile-alt"></span>
@@ -117,13 +168,13 @@
                                                     </div>
                                                     <div class="media-body">
                                                         <div class="custom-file" style="width: auto;">
-                                                            <input type="file" id="avatar" class="custom-file-input">
+                                                            <input required="" name="image" type="file" id="avatar" class="custom-file-input">
                                                             <label for="avatar" class="custom-file-label">Choose image</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                              <label class="form-label">Education Level</label>
-                                                <select name="cars" class="custom-select mb-3">
+                                                <select required="" name="ed_level" class="custom-select mb-3">
                                                    <option selected>Other</option>
                                                    <option>High School</option>
                                                    <option>Diploma / GED</option>
@@ -132,14 +183,22 @@
                                                    <option>Bachelor's Degree</option>
                                                    <option>Master's Degree or Higher</option>
                                                  </select>
-                <button type="submit" class="btn btn-primary btn-block mb-3">Sign Up</button>
+                <button type="submit" name="submit" class="btn btn-primary btn-block mb-3">Sign Up</button>
                         <div class="form-group text-center mb-0">
                             <div class="custom-control custom-checkbox">
                                                             </div>
                         </div>
                     </form>
+                    <?php
+                            if (isset($message)) {
+                            echo"<div class='alert alert-success' role='alert' width='500'>
+                            {$message}
+                            </div>
+                            ";
+                            }
+                            ?>
                 </div>
-                <div class="card-footer text-center text-black-50">Already signed up? <a href="user-login.html">Login</a></div>
+                <div class="card-footer text-center text-black-50">Already signed up? <a href="user-login.php">Login</a></div>
             </div>
         </div>
     </div>
@@ -167,7 +226,13 @@
 
     <!-- App Settings (safe to remove) -->
     <script src="assets/js/app-settings.js"></script>
-
+<script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
 
 
 

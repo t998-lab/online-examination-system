@@ -1,6 +1,6 @@
 <?php
 
-require('db_connection.php');
+require_once('db_connection.php');
 
 class Question extends dbconnection{
 
@@ -60,16 +60,10 @@ class Question extends dbconnection{
 
 
 	public function addStHistory($st_id,$examID,$date,$array1){
-                $TakeExamNum="UPDATE exam SET tekenNum=tekenNum+1 WHERE exam_id=$examID";
+		$TakeExamNum="UPDATE exam SET tekenNum=tekenNum+1 WHERE exam_id=$examID";
 		$this->performQuery($TakeExamNum);
 		
-		$lastExam ="SELECT * FROM exam order by exam_id desc limit 1";
-		$result   = $this->performQuery($lastExam);
-		$row      = $this->fetchAll($result);
-		$cat_id   =$row [0]['cat_id'];
-		$TakeCatNum="UPDATE category SET tekenNum=tekenNum+1 WHERE cat_id=$cat_id";
-		$this->performQuery($TakeCatNum);
-
+		
 		$query    = "INSERT INTO student_history(st_id, exam_id, exam_date)
 								 VALUES('$st_id','$examID','$date')";
 		$this->performQuery($query);
@@ -78,6 +72,13 @@ class Question extends dbconnection{
 		$result   = $this->performQuery($query1);
 		$row      = $this->fetchAll($result);
 		$ID       = $row [0]['h_id'];
+		$exam_id=$row [0]['exam_id'];
+		$query1   = "SELECT * FROM exam where exam_id= $exam_id";
+		$result   = $this->performQuery($query1);
+		$row      = $this->fetchAll($result);
+		$cat_id=$row[0]['cat_id'];
+		$takeCatNum="UPDATE category SET tekenNum=tekenNum+1 WHERE cat_id=$cat_id";
+		$this->performQuery($takeCatNum);
 		$this->addExamDetail($ID,$array1);
 	}
 
