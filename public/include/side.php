@@ -25,7 +25,7 @@ $cat=$c->read();
                                         </a>
                                         <ul class="sidebar-submenu sm-indent collapse" id="account_menu">
                                             <li class="sidebar-menu-item">
-                                                <a class="sidebar-menu-button" href="#">
+                                                <a class="sidebar-menu-button" href="student-account-edit.php">
                                                     <span class="sidebar-menu-text">Edit Account</span>
                                                 </a>
                                             </li>
