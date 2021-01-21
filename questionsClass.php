@@ -1,6 +1,6 @@
 <?php
 
-require_once('db_connection.php');
+require_once('db_connection.php'); //here
 
 class Question extends dbconnection{
 
@@ -58,12 +58,13 @@ class Question extends dbconnection{
 		 $this->performQuery($query);
 	}
 
-
 	public function addStHistory($st_id,$examID,$date,$array1){
+		$examMark = 0;
+
 		$TakeExamNum="UPDATE exam SET tekenNum=tekenNum+1 WHERE exam_id=$examID";
 		$this->performQuery($TakeExamNum);
-		
-		
+
+
 		$query    = "INSERT INTO student_history(st_id, exam_id, exam_date)
 								 VALUES('$st_id','$examID','$date')";
 		$this->performQuery($query);
@@ -79,10 +80,11 @@ class Question extends dbconnection{
 		$cat_id=$row[0]['cat_id'];
 		$takeCatNum="UPDATE category SET tekenNum=tekenNum+1 WHERE cat_id=$cat_id";
 		$this->performQuery($takeCatNum);
-		$this->addExamDetail($ID,$array1);
+		$this->addExamDetail($examID,$ID,$array1);
 	}
 
-	public function addExamDetail($ID,$array1){
+	public function addExamDetail($examID,$ID,$array1){
+		$test = 0;
 		foreach ($array1 as $key => $value) {
 			$query    = "INSERT INTO h_details(h_id, q_id, st_answer)
 									 VALUES('$ID','$key','$value')";
@@ -103,13 +105,31 @@ class Question extends dbconnection{
 			$result3     = $this->performQuery($query3);
 
 			$QMark      = $this->readById($key);
-			$mark       = $QMark[0]['q_mark'];
+			$mark       = $QMark[0]['q_mark'];//exam mark
 			if ($value==$correct_option){
+			$marks = $marks +$mark; //result of student for the select query below
 			$query3      ="UPDATE student_history SET result = result+$mark
 										 WHERE  h_id = $ID";
 			$this->performQuery($query3);
 		}//end if
 	}//end foreach
+	//
+     $q ="SELECT exam_mark from exam where exam_id =$examID";
+		 $r  = $this->performQuery($q);
+		 $d  = $this->fetchAll($r);
+		 $q_m = $d[0]['exam_mark'];//question's full mark
+
+						if(($q_m/2)<=$marks){
+						$q1      ="UPDATE exam SET pass =pass+1
+													 WHERE  exam_id = $examID";
+						$r1    = $this->performQuery($q1);}
+						else {
+						if($q_m>$marks) {
+							$q2      ="UPDATE exam SET fail =fail+1
+														 WHERE  exam_id = $examID";
+							$r2    = $this->performQuery($q2);
+						}}
+
 	echo "<script>window.location ='exam-result.php?h_id=$ID';</script>";
 	}
 
