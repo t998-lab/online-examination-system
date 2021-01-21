@@ -18,7 +18,20 @@ include("includes/header.php");
       $x->two         =  $_POST['secondChoice'];
       $x->three       =  $_POST['thirdChoice'];
       $x->four        =  $_POST['fourthChoice'];
-      $x->correct     =  $_POST['select_correct'];
+
+      if ($_POST['select_correct']=='a'){
+        $x->correct      =  $_POST['firstChoice'];
+      }
+      elseif ($_POST['select_correct']=='b'){
+        $x->correct      =  $_POST['secondChoice'];
+      }
+      elseif ($_POST['select_correct']=='c'){
+        $x->correct      =  $_POST['thirdChoice'];
+      }
+        elseif ($_POST['select_correct']=='d'){
+        $x->correct     =  $_POST['fourthChoice'];
+        }
+
       $x->type        = "multiple";
       $x->question_id = $question_id;
       $x->exam_id     = $row_option[0]['exam_id'];
@@ -27,7 +40,13 @@ include("includes/header.php");
     else {
       $x->one1        =  $_POST['first'];
       $x->two1        =  $_POST['second'];
-      $x->correct1    =  $_POST['selectTF'];
+
+      if ($_POST['selectTF']=='e'){
+        $x->correct1       =  $_POST['first'];
+      }
+      elseif ($_POST['selectTF']=='f'){
+        $x->correct1      =  $_POST['second'];
+      }
       $x->type1       =  "true or false";
       $x->question_id = $question_id;
       $x->exam_id1    = $row_option[0]['exam_id'];
@@ -36,7 +55,7 @@ include("includes/header.php");
     }
       $x->question     =   $_POST['qusetion'];
       $x->mark         =   $_POST['marks'];
-      //
+
       if($_FILES['q_img']['name']){
         $x->image        =   $_FILES['q_img']['name'];
         $tmpName         =   $_FILES['q_img']['tmp_name'];
@@ -133,10 +152,10 @@ include("includes/header.php");
                                           <label>Correct Choice</label>
                                          <select class="btn btn-outline-secondary" name = "select_correct" id="select_correct">
                                            <option value=""> </option>
-                                           <option class="dropdown-item">First Choice</option>
-                                           <option class="dropdown-item">Second Choice</option>
-                                           <option class="dropdown-item">Third Choice</option>
-                                           <option class="dropdown-item">Fourth Choice</option>
+                                           <option value="a" class="dropdown-item">First Choice</option>
+                                           <option value="b" class="dropdown-item">Second Choice</option>
+                                           <option value="c" class="dropdown-item">Third Choice</option>
+                                           <option value="d" class="dropdown-item">Fourth Choice</option>
                                          </select>
                                       </div>
                                       <!-- end of multiple choices -->
@@ -148,20 +167,20 @@ include("includes/header.php");
                                       <div class="input-group-prepend">
                                        <span class="input-group-text">First Choice</span>
                                       </div>
-                                      <input type="text" class="form-control" name="first" value="<?php echo $row_option[0]['option1'];?>">
+                                      <input type="text" class="form-control" name="first" value="True" readonly="readonly">
                                       </div>
 
                                         <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                          <span class="input-group-text">Second Choice</span>
                                         </div>
-                                       <input type="text" class="form-control" name="second" value="<?php echo $row_option[0]['option2'];?>">
+                                       <input type="text" class="form-control" name="second" value="False" readonly="readonly">
                                       </div>
                                       <label>Correct Choice</label>
                                       <select class="btn btn-outline-secondary" name="selectTF" id="selectTF">
                                         <option value=""> </option>
-                                        <option class="item">T</option>
-                                        <option class="item">F</option>
+                                        <option value="e" class="item">T</option>
+                                        <option value="f" class="item">F</option>
                                       </select>
                                       </div>
                                       <!-- end of true or false -->
