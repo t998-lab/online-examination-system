@@ -163,14 +163,14 @@ text-align: center;
                                     <div class="input-group-prepend">
                                      <span class="input-group-text">First Choice</span>
                                     </div>
-                                    <input type="text" class="form-control" name="first" >
+                                    <input type="text" class="form-control" name="first" value="True" readonly="readonly">
                                     </div>
 
                                       <div class="input-group mb-3">
                                       <div class="input-group-prepend">
                                        <span class="input-group-text">Second Choice</span>
                                       </div>
-                                     <input type="text" class="form-control" name="second" >
+                                     <input type="text" class="form-control" name="second" value="False" readonly="readonly">
                                     </div>
                                     <label>Correct Choice</label>
                                     <select class="btn btn-outline-secondary" name="selectTF" id="selectTF">
@@ -258,6 +258,7 @@ text-align: center;
                                         </table>
                                     </div>
                                 </div>
+
                                 <!--  END TOP CAMPAIGN-->
 
                                 <?php
